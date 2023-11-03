@@ -1,0 +1,3 @@
+# Ignore everyfile that was compiled and moved here
+*.dll
+*.so

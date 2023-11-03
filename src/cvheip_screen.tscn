@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://co0q7rxvmq4y1"]
+
+[ext_resource type="Texture2D" uid="uid://057a4wafsa28" path="res://assets/sprites/CVheip/CVheip_0.png" id="1_1cnog"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CVHeip" type="CVHeip" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CVHeip"]
+texture = ExtResource("1_1cnog")
