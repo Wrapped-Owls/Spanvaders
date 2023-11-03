@@ -1,0 +1,49 @@
+version: '3'
+
+vars:
+  RUST_PROJECT_SRCDIR: libs/
+  LIBRARIES_OUTPUT: src/libraries/
+  LIBRARY_NAMES: screenemy
+
+tasks:
+  build:lib:
+    desc: Build the Rust library
+    cmds:
+      - "cargo build --release --manifest-path {{.RUST_PROJECT_SRCDIR}}{{.LIBRARY}}/Cargo.toml"
+    requires:
+      LIBRARY:
+
+  lib:2godot:
+    cmds:
+      - cp {{.RUST_PROJECT_SRCDIR}}{{.LIBRARY}}/target/release/{{.COMPILED_LIB}} {{.LIBRARIES_OUTPUT}}{{.COMPILED_LIB}}
+    vars:
+      COMPILED_LIB:
+        sh:
+          if [ "$(uname)" == "Linux" ]; then
+          echo "lib{{.LIBRARY}}.so";
+          elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+          echo "lib{{.LIBRARY}}.dll";
+          else
+          echo "Unsupported operating system";
+          fi
+    requires:
+      LIBRARY:
+
+  build:release:
+    desc: Run build and copy for a given library
+    cmds:
+      - task: build:lib
+        vars:
+          LIBRARY: "{{.LIBRARY}}"
+      - task: lib:2godot
+        vars:
+          LIBRARY: "{{.LIBRARY}}"
+    requires:
+      LIBRARY:
+
+  build:all:
+    desc: Build all libraries
+    cmds:
+      - task: build:release
+        vars:
+          LIBRARY: "screenemy"
