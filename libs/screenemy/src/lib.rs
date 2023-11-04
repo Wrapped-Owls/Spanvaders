@@ -1,6 +1,6 @@
 use godot::prelude::*;
 
-mod cvheip;
+mod bosses;
 
 struct Screenemy;
 

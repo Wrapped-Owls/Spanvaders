@@ -1,5 +1,5 @@
 [package]
-name = "screenemy"
+name = "corevaders"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,7 +7,6 @@ edition = "2021"
 
 [dependencies]
 godot = { git = "https://github.com/godot-rust/gdext", branch = "master" }
-corevaders = { path = "../corevaders" }
 
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["rlib"]
